@@ -1,4 +1,3 @@
-#FOR FIGURE ONLY
 
 library(dplyr)
 library(ggplot2)
@@ -8,16 +7,11 @@ forr<- read_excel("D:/study/summer/final doc/500~500/result/forr.xlsx")
 
 forr_data_frame <- as.data.frame(forr)
 
-#fig1 matched number in different levels in different methods
-
 forr4<- forr_data_frame[c(FALSE, TRUE, FALSE, FALSE),]
 forr4<- forr4 %>% filter(Reference_tree_size==500)
 
-# Assuming forr1 is a tibble containing the necessary columns
-# Create a custom order for the Levels variable
 custom_order <- c("Order_correct", "Infraorder_correct", "Superfamily_correct", "Family_correct", "Subfamily_correct")
 
-# Convert the Levels variable to a factor with custom order
 forr4$Taxonomic_levels <- factor(forr4$Taxonomic_levels, levels = custom_order)
 
 summary_forr4 <- forr4 %>%
@@ -41,10 +35,10 @@ fig4<-ggplot(summary_forr4, aes(x = Phylogenetic_methods, y = Mean, fill = Taxon
             vjust = -0.5,
             color = "#808080",    # Change the text color to black
             size = 4) +
-  theme_minimal() +  # 使用最小化的主题，去掉背景网格线
+  theme_minimal() +
   theme(
-    panel.grid.minor = element_blank(),# 去掉主要网格线
-    panel.border = element_blank()  # 去掉边框线
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank()
   )
 fig4
 ggsave("fig4.png", plot = fig4, width = 6.59, height = 5.57)

@@ -11,7 +11,6 @@ forr8 <- forr8 %>% filter(Phylogenetic_methods == "EPA" | Phylogenetic_methods =
 
 custom_order <- c("Order_correct", "Infraorder_correct", "Superfamily_correct", "Family_correct", "Subfamily_correct", "Genus_correct")
 
-# Convert the Levels variable to a factor with custom order
 forr8$Taxonomic_levels <- factor(forr8$Taxonomic_levels, levels = custom_order)
 
 summary_forr8 <- forr8 %>%
@@ -36,13 +35,12 @@ fig8<-ggplot(summary_forr8, aes(x = Phylogenetic_methods, y = Mean, fill = Taxon
             size = 4) +
   facet_grid(rows = vars(Reference_tree_size)) +
   theme(strip.text = element_text(size = 12, face = "bold")) +
-  # 添加右侧y轴标题，不显示刻度标签
   scale_y_continuous(sec.axis = sec_axis(trans = ~., name = "Reference Tree size",
                                          breaks = NULL))+
   theme(
-    panel.grid.minor = element_blank(),  # 去掉次要网格线# 去掉主要网格线
-    panel.border = element_blank() ) # 去掉边框线
-
+    panel.grid.minor = element_blank(), 
+    panel.border = element_blank() ) 
 
 fig8
+
 ggsave("fig8.png", fig8, width = 7.59, height = 7.97, dpi = 300)
